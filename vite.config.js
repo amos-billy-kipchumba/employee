@@ -10,4 +10,12 @@ export default defineConfig({
         }),
         react(),
     ],
+    build: {
+        assetsDir: 'assets', // Ensures correct folder structure
+        rollupOptions: {
+            output: {
+                assetFileNames: 'assets/[name][extname]', // Fixes incorrect asset paths
+            },
+        },
+    },
 });

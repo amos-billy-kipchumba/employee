@@ -93,11 +93,10 @@ function Footer() {
                   <p>Your Comments</p>
                   <textarea
                     name="your message"
-                    value={data.comment}
+                    value={data.comment}  // Controlled by state
                     onChange={(e) => setData('comment', e.target.value)}
                     placeholder=" "
-                    required=""
-                    defaultValue={""}
+                    required
                   />
                   <input type="submit" defaultValue="Send message" />
                 </div>
