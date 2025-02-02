@@ -116,9 +116,9 @@ function Footer() {
               <div className="address-w3-agile">
                 <i className="fa fa-mobile" aria-hidden="true" />
                 <p>
-                  +254 720 229 744
+                  +254208022022
                   <br />
-                  +254 796 657 130
+                  +17787177439
                 </p>
                 <div className="clearfix" />
               </div>
