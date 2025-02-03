@@ -130,7 +130,7 @@ function Footer() {
               <ul className="social-icons">
                 <li>
                   <a
-                    href="https://www.facebook.com/Bluewave-International-Services-Limited-573923095988521/"
+                    href="https://www.facebook.com/LinkPath-International-Services-Limited-573923095988521/"
                     className="fb"
                     target="_blank"
                   >
@@ -257,7 +257,7 @@ function Footer() {
                   that it brings about an ideal, effective, and mutually beneficial
                   partnership, a lucrative alliance that satisfies both employer and
                   employee. <br />
-                  As the very bridge that brings together both parties, BlueWave
+                  As the very bridge that brings together both parties, LinkPath
                   International Services not only contributes to alleviating the
                   stress of manpower scarcity facing a great number of recruitment
                   companies today but, at the same time, it provides the jobless

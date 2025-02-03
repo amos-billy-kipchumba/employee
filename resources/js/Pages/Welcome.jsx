@@ -103,7 +103,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         <div className="view view-tenth">
                           <div className="agile_text_box">
                             <i className="fa fa-send-o" aria-hidden="true" />
-                            <h3>Bluewave's Commitment</h3>
+                            <h3>LinkPath's Commitment</h3>
                             <p>
                               Our relationships with clients extend far beyond
                               the initial training. We provide continuous
@@ -192,7 +192,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         <ul className="social-icons">
                           <li>
                             <a
-                              href="https://www.facebook.com/Bluewave-International-Services-Limited-573923095988521/"
+                              href="https://www.facebook.com/LinkPath-International-Services-Limited-573923095988521/"
                               className="fb"
                               target="_blank"
                             >
@@ -228,7 +228,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         <ul className="social-icons">
                           <li>
                             <a
-                              href="https://www.facebook.com/Bluewave-International-Services-Limited-573923095988521/"
+                              href="https://www.facebook.com/LinkPath-International-Services-Limited-573923095988521/"
                               className="fb"
                               target="_blank"
                             >
@@ -264,7 +264,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         <ul className="social-icons">
                           <li>
                             <a
-                              href="https://www.facebook.com/Bluewave-International-Services-Limited-573923095988521/"
+                              href="https://www.facebook.com/LinkPath-International-Services-Limited-573923095988521/"
                               className="fb"
                               target="_blank"
                             >
@@ -518,7 +518,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                               className="img-responsive"
                             />
                             <div className="w3layouts_gallery_grid1_pos">
-                              <h3>Bluewave Offices</h3>
+                              <h3>LinkPath Offices</h3>
                               <p>Our Offices in Lyric House Nairobi</p>
                             </div>
                           </div>

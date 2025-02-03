@@ -108,7 +108,7 @@ function Header() {
 
                         <Link
                             href={route('register')}
-                            className="scroll ml-2"
+                            className="scroll ml-2 bg-yellow-600 text-white px-4 py-2"
                         >
                             Register
                         </Link>
