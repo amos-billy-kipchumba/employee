@@ -26,7 +26,7 @@ const ProcessedRequest = () => {
                     <div>
                         <p>Hi, {user.name}</p>
                         <p>Your submission is being processed!</p>
-                        <p>We will send you an email once you are approved. Thank you!</p>
+                        <p>{user?.latest_notification?.message}</p>
                     </div>
 
                 </div>

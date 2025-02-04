@@ -25,6 +25,7 @@ class StoreUserRequest extends FormRequest
             'name' => 'nullable',
             'phone' => 'nullable',
             'role_id' => 'nullable',
+            'position' => 'nullable',
             'email' => 'nullable|email',
             'password' => 'nullable',
             'company_id' => 'nullable',

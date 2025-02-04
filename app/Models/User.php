@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -24,17 +25,18 @@ class User extends Authenticatable
         'email',
         'password',
         'company_id',
-        'date_of_birth',          // Added date of birth
-        'nationality',            // Added nationality
-        'current_location',       // Added current location
-        'preferred_countries',    // Added preferred countries
-        'work_experience',        // Added work experience
-        'education',              // Added education
-        'languages',              // Added languages
-        'passport_number',        // Added passport number
-        'cv',                     // Added CV
-        'cover_letter',           // Added cover letter
-        'references',             // Added references
+        'date_of_birth',
+        'nationality',
+        'current_location',
+        'preferred_countries',
+        'work_experience',
+        'education',
+        'languages',
+        'passport_number',
+        'cv',
+        'cover_letter',
+        'references',
+        'position'
     ];
 
     /**
@@ -47,8 +49,31 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function company(){
+    /**
+     * The attributes that should be appended to the user model.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = ['latest_notification'];
+
+    public function company()
+    {
         return $this->hasOne('App\Models\Company', 'id', 'company_id');
+    }
+
+    public function notification()
+    {
+        return $this->hasOne('App\Models\Notification', 'user_id', 'id')->latestOfMany();
+    }
+
+    /**
+     * Accessor to get the latest notification.
+     */
+    public function latestNotification(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->notification, // Fetch the latest notification
+        );
     }
 
     /**
@@ -59,7 +84,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'date_of_birth' => 'date',      // Cast to date
-        'preferred_countries' => 'array', // Cast to array if storing as JSON or array
+        'date_of_birth' => 'date',
+        'preferred_countries' => 'array',
     ];
 }

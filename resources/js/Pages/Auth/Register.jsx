@@ -5,9 +5,9 @@ import Guest from '@/Layouts/GuestLayout';
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '', email: '', phone: '', password: '', password_confirmation: '',
-        dateOfBirth: '', nationality: '', currentLocation: '', preferredCountries: '',
-        workExperience: '', education: '', languages: '', passportNumber: '',
-        cv: null, coverLetter: null, references: '', role_id: 3
+        dateOfBirth: '', nationality: '', current_location: '', preferred_countries: '',
+        position: '', education: '', languages: '', passport_number: '',
+        cv: null, cover_letter: null, references: '', role_id: 3
     });
 
     const [step, setStep] = useState(1);
@@ -23,14 +23,14 @@ export default function Register() {
 
     return (
         <Guest>
-            <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
+            <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 bg-yellow-400 text-xl">
                 <Head title="Register" />
                 
                 <div className="w-full max-w-4xl bg-white shadow-md rounded-lg p-8">
                     <img 
                         src="/image/logo/logo.png" 
                         alt="hyper" 
-                        className="h-14 mb-3 mx-auto"
+                        className="h-16 mb-3 mx-auto"
                     />
 
                     <div className="flex justify-end mb-4">
@@ -86,6 +86,16 @@ export default function Register() {
                                     />
                                     {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
                                 </div>
+
+                                <div className="mb-3">
+                                    <label htmlFor="password" className="block mb-1">Password</label>
+                                    <input 
+                                        type="password" name="password" id="password" value={data.password} 
+                                        onChange={(e) => setData('password', e.target.value)} 
+                                        placeholder="Password" className="w-full p-2 border rounded" 
+                                    />
+                                    {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+                                </div>
                             </div>
                         )}
 
@@ -93,13 +103,13 @@ export default function Register() {
                             <div>
                                 <h3 className="text-xl font-semibold mb-4">Work & Education</h3>
                                 <div className="mb-3">
-                                    <label htmlFor="workExperience" className="block mb-1">Work Experience (years)</label>
+                                    <label htmlFor="position" className="block mb-1">Work position</label>
                                     <input 
-                                        type="number" name="workExperience" id="workExperience" value={data.workExperience} 
-                                        onChange={(e) => setData('workExperience', e.target.value)} 
-                                        placeholder="Work Experience (years)" className="w-full p-2 border rounded" 
+                                        type="text" name="position" id="position" value={data.position} 
+                                        onChange={(e) => setData('position', e.target.value)} 
+                                        placeholder="Position" className="w-full p-2 border rounded" 
                                     />
-                                    {errors.workExperience && <p className="text-red-500 text-sm">{errors.workExperience}</p>}
+                                    {errors.position && <p className="text-red-500 text-sm">{errors.position}</p>}
                                 </div>
                             </div>
                         )}
@@ -108,13 +118,13 @@ export default function Register() {
                             <div>
                                 <h3 className="text-xl font-semibold mb-4">Additional Details</h3>
                                 <div className="mb-3">
-                                    <label htmlFor="passportNumber" className="block mb-1">Passport Number</label>
+                                    <label htmlFor="passport_number" className="block mb-1">Passport/ID number</label>
                                     <input 
-                                        type="text" name="passportNumber" id="passportNumber" value={data.passportNumber} 
-                                        onChange={(e) => setData('passportNumber', e.target.value)} 
-                                        placeholder="Passport Number" className="w-full p-2 border rounded" 
+                                        type="text" name="passport_number" id="passport_number" value={data.passport_number} 
+                                        onChange={(e) => setData('passport_number', e.target.value)} 
+                                        placeholder="Passport/ID Number" className="w-full p-2 border rounded" 
                                     />
-                                    {errors.passportNumber && <p className="text-red-500 text-sm">{errors.passportNumber}</p>}
+                                    {errors.passport_number && <p className="text-red-500 text-sm">{errors.passport_number}</p>}
                                 </div>
                             </div>
                         )}
@@ -126,6 +136,12 @@ export default function Register() {
                                     <label htmlFor="cv" className="block mb-1">Upload CV</label>
                                     <input type="file" id="cv" onChange={(e) => setData('cv', e.target.files[0])} className="w-full p-2 border rounded" />
                                     {errors.cv && <p className="text-red-500 text-sm">{errors.cv}</p>}
+                                </div>
+
+                                <div className="mb-3">
+                                    <label htmlFor="cover_letter" className="block mb-1">Certificate of good conduct</label>
+                                    <input type="file" id="cover_letter" onChange={(e) => setData('cover_letter', e.target.files[0])} className="w-full p-2 border rounded" />
+                                    {errors.cover_letter && <p className="text-red-500 text-sm">{errors.cover_letter}</p>}
                                 </div>
                             </div>
                         )}

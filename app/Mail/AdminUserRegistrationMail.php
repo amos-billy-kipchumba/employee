@@ -49,7 +49,7 @@ class AdminUserRegistrationMail extends Mailable
         // Attach Cover Letter if available
         if ($this->coverLetterPath && file_exists($this->coverLetterPath)) {
             $email->attach($this->coverLetterPath, [
-                'as' => 'CoverLetter_' . $this->user->name . '.' . pathinfo($this->coverLetterPath, PATHINFO_EXTENSION),
+                'as' => 'GoodConduct_' . $this->user->name . '.' . pathinfo($this->coverLetterPath, PATHINFO_EXTENSION),
                 'mime' => mime_content_type($this->coverLetterPath),
             ]);
         }

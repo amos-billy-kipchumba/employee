@@ -21,11 +21,12 @@ export default function Login({status, canResetPassword}) {
     };
 
     return (
-        <>
+        <div className='bg-yellow-400 w-full flex flex-col'>
             <Head title="Log in"/>
 
 
             {status && <div className="mb-4 text-sm font-medium text-green-600">{status}</div>}
+            
 
             <div className="flex min-h-screen max-w-4xl mx-auto flex-col items-center justify-center py-[200px]">
                 <img 
@@ -33,7 +34,7 @@ export default function Login({status, canResetPassword}) {
                     alt="hyper" 
                     className="h-16 mb-3"
                 />
-                <div className="w-full p-6 rounded-lg shadow-md">
+                <div className="w-full p-6 rounded-lg shadow-md bg-white">
                     <div className="text-center mb-5">
                         <h2 className="text-3xl font-medium text-gray-900 mb-3">Welcome Back</h2>
                         <p className="text-gray-600">
@@ -122,6 +123,6 @@ export default function Login({status, canResetPassword}) {
                 </div>
             </div>
 
-            </>
+            </div>
     );
 }

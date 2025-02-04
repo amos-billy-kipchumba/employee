@@ -16,6 +16,7 @@ const AppMenu = () => {
                 { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: route('dashboard'), roles: [1, 2, 3] },
                 { label: 'Users', icon: 'pi pi-fw pi-user', to: route('users.index'), roles: [1] },
                 { label: 'Profile', icon: 'pi pi-user', to: route('profile.edit'), roles: [1, 2, 3] },
+                { label: 'Notifications', icon: 'pi pi-fw pi-bell', to: route('notifications.index'), roles: [1] },
             ]
         },
     ];

@@ -108,7 +108,7 @@ function Footer() {
               <div className="address-w3-agile">
                 <i className="fa fa-location-arrow" aria-hidden="true" />
                 <p>
-                  Lyric House - 5th Floor, Left Wing. Kimathi Street ,Nairobi City
+                  Lyric House - 4959 Islington Ave ,Toronto City
                   <br /> P.O Box 14212 - 00400
                 </p>
                 <div className="clearfix" />

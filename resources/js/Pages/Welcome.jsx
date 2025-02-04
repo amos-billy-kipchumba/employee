@@ -214,7 +214,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                       </div>
                     </div>
                     {/* end normal */}
-                    <h5>Mr. Amos Mbugua</h5>
+                    <h5>Mr. Linus Ashihundu</h5>
                     <p>Managing Director</p>
                   </div>
                   <div className="col-sm-4 team-w3-agileits">
@@ -250,7 +250,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                       </div>
                     </div>
                     {/* end colored */}
-                    <h5>Mr. Michael Karanja</h5>
+                    <h5>Mr. Brian Juma</h5>
                     <p>Director / Head of Operations</p>
                   </div>
                   <div className="col-sm-4 team-w3-agileits">
@@ -519,7 +519,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             />
                             <div className="w3layouts_gallery_grid1_pos">
                               <h3>LinkPath Offices</h3>
-                              <p>Our Offices in Lyric House Nairobi</p>
+                              <p>4959 Islington Ave, Toronto</p>
                             </div>
                           </div>
                         </a>

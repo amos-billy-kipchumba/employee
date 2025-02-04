@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Notification;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -47,7 +48,7 @@ class RegisteredUserController extends Controller
              'nationality' => 'nullable|string',
              'current_location' => 'nullable|string',
              'preferred_countries' => 'nullable|array',
-             'work_experience' => 'nullable|integer',
+             'position' => 'nullable',
              'education' => 'nullable|string',
              'languages' => 'nullable|string',
              'passport_number' => 'nullable|string',
@@ -64,19 +65,24 @@ class RegisteredUserController extends Controller
              'name' => $request->name,
              'email' => $request->email,
              'phone' => $request->phone,
-             'role_id' => $request->role_id,
+             'role_id' => 3,
              'password' => Hash::make($request->password),
              'date_of_birth' => $request->date_of_birth,
              'nationality' => $request->nationality,
              'current_location' => $request->current_location,
              'preferred_countries' => $request->preferred_countries,
-             'work_experience' => $request->work_experience,
+             'position' => $request->position,
              'education' => $request->education,
              'languages' => $request->languages,
              'passport_number' => $request->passport_number,
              'cv' => $cvPath,
              'cover_letter' => $coverLetterPath,
              'references' => $request->references,
+         ]);
+
+         Notification::create([
+            'message'=>'Your submission is being processed! We will send you an email once you are approved. Thank you!',
+            'user_id'=>$user->id
          ]);
      
          // Send confirmation email to user
