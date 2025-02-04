@@ -29,7 +29,7 @@
     <p>Languages: {{ $user->languages }}</p>
     <p>References: {{ $user->references }}</p>
     
-    <p>CV and Cover Letter are attached.</p>
+    <p>CV and Certificate of good conduct are attached.</p>
 
     <p><strong>The LinkPath Team</strong></p>
 </body>

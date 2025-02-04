@@ -54,11 +54,11 @@ function Header() {
         <div className="banner-top-w3-agile">
             <ul>
             <li className='flex flex-col space-y-1 text-4xl'>
-                <a href="https://wa.me/1778177439" target="_blank" rel="noopener noreferrer">
-                    <span className='mr-2'>1: </span><i className="fa fa-whatsapp text-white" aria-hidden="true"></i>
+                <a href="https://wa.me/17787177439" className='flex items-center' target="_blank" rel="noopener noreferrer">
+                    <span className='mr-2'>1 </span><i className="fa fa-whatsapp text-green-400" aria-hidden="true"></i>
                 </a>
-                <a href="https://wa.me/254208022022" target="_blank" rel="noopener noreferrer">
-                    <span className='mr-2'>2: </span> <i className="fa fa-whatsapp text-white" aria-hidden="true"></i>
+                <a href="https://wa.me/254208022022" className='flex items-center' target="_blank" rel="noopener noreferrer">
+                    <span className='mr-2'>2 </span> <i className="fa fa-whatsapp text-green-400" aria-hidden="true"></i>
                 </a>
             </li>
 

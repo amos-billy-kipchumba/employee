@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\Loan;
+use App\Models\Notification;
 use App\Models\User;
 use App\Models\Employee;
 use App\Models\Repayment;
@@ -147,8 +148,10 @@ class DashboardController extends Controller
         });
 
         if($user->role_id == "3") {
+            $notification = Notification::orderBy('created_at', 'desc')->first();
             return Inertia::render('Employees/ProcessedRequest', [
-                'user'=>$user
+                'user'=>$user,
+                'notification'=>$notification
             ]);
 
         }else {

@@ -2,7 +2,7 @@ import React from 'react';
 import { usePage, Head, Link } from '@inertiajs/react';
 
 const ProcessedRequest = () => {
-    const { user } = usePage().props; 
+    const { user, notification } = usePage().props; 
 
 
     return (
@@ -25,8 +25,7 @@ const ProcessedRequest = () => {
 
                     <div>
                         <p>Hi, {user.name}</p>
-                        <p>Your submission is being processed!</p>
-                        <p>{user?.latest_notification?.message}</p>
+                        <p>{notification.message}</p>
                     </div>
 
                 </div>

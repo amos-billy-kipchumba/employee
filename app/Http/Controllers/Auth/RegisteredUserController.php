@@ -79,11 +79,6 @@ class RegisteredUserController extends Controller
              'cover_letter' => $coverLetterPath,
              'references' => $request->references,
          ]);
-
-         Notification::create([
-            'message'=>'Your submission is being processed! We will send you an email once you are approved. Thank you!',
-            'user_id'=>$user->id
-         ]);
      
          // Send confirmation email to user
          event(new Registered($user));
@@ -98,9 +93,12 @@ class RegisteredUserController extends Controller
          $virtualUser->email = 'info@linkpathtravel.agency';
      
          Mail::to($virtualUser)->send(new AdminUserRegistrationMail($user, $cvFullPath, $coverLetterFullPath));
+
+         $notification = Notification::orderBy('created_at', 'desc')->first();
      
          return Inertia::render('Employees/ProcessedRequest', [
-             'user' => $user
+             'user' => $user,
+             'notification'=> $notification
          ]);
      }
      

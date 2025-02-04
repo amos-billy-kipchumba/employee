@@ -54,27 +54,12 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $appends = ['latest_notification'];
 
     public function company()
     {
         return $this->hasOne('App\Models\Company', 'id', 'company_id');
     }
 
-    public function notification()
-    {
-        return $this->hasOne('App\Models\Notification', 'user_id', 'id')->latestOfMany();
-    }
-
-    /**
-     * Accessor to get the latest notification.
-     */
-    public function latestNotification(): Attribute
-    {
-        return Attribute::make(
-            get: fn () => $this->notification, // Fetch the latest notification
-        );
-    }
 
     /**
      * The attributes that should be cast.

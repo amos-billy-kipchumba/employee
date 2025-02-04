@@ -86,16 +86,6 @@ export default function Register() {
                                     />
                                     {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
                                 </div>
-
-                                <div className="mb-3">
-                                    <label htmlFor="password" className="block mb-1">Password</label>
-                                    <input 
-                                        type="password" name="password" id="password" value={data.password} 
-                                        onChange={(e) => setData('password', e.target.value)} 
-                                        placeholder="Password" className="w-full p-2 border rounded" 
-                                    />
-                                    {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
-                                </div>
                             </div>
                         )}
 
@@ -110,6 +100,16 @@ export default function Register() {
                                         placeholder="Position" className="w-full p-2 border rounded" 
                                     />
                                     {errors.position && <p className="text-red-500 text-sm">{errors.position}</p>}
+                                </div>
+
+                                <div className="mb-3">
+                                    <label htmlFor="education" className="block mb-1">Highest education level</label>
+                                    <input 
+                                        type="text" name="education" id="education" value={data.education} 
+                                        onChange={(e) => setData('education', e.target.value)} 
+                                        placeholder="Education level" className="w-full p-2 border rounded" 
+                                    />
+                                    {errors.education && <p className="text-red-500 text-sm">{errors.education}</p>}
                                 </div>
                             </div>
                         )}
