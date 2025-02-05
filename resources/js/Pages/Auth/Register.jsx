@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useForm, Head, Link } from '@inertiajs/react';
+import { useForm, Head, Link, usePage } from '@inertiajs/react';
 import Guest from '@/Layouts/GuestLayout';
 
 export default function Register() {
@@ -10,8 +10,10 @@ export default function Register() {
         cv: null, cover_letter: null, references: '', role_id: 3
     });
 
+    const { notification } = usePage().props;
+
     const [step, setStep] = useState(1);
-    const totalSteps = 4;
+    const totalSteps = 5;
 
     const nextStep = () => setStep((prev) => Math.min(prev + 1, totalSteps));
     const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
@@ -45,13 +47,12 @@ export default function Register() {
                     
                     <h2 className="text-center text-3xl font-bold mb-6">Registration Form</h2>
 
-                    {/* Progress Bar */}
                     <div className="relative w-full bg-gray-200 rounded-full h-2 mb-6">
                         <div className="bg-blue-600 h-2 rounded-full" style={{ width: `${(step / totalSteps) * 100}%` }}></div>
                     </div>
 
-
                     <form onSubmit={submit} className="space-y-6">
+                        {/* Steps 1-4 remain the same */}
                         {step === 1 && (
                             <div>
                                 <h3 className="text-xl font-semibold mb-4">Personal Information</h3>
@@ -75,7 +76,6 @@ export default function Register() {
                                     />
                                     {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                                 </div>
-
 
                                 <div className="mb-3">
                                     <label htmlFor="phone" className="block mb-1">Phone</label>
@@ -146,13 +146,34 @@ export default function Register() {
                             </div>
                         )}
 
+                        {step === 5 && (
+                            <div>
+                                <h3 className="text-xl font-semibold mb-4">Registration Fees Details</h3>
+                                <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                                    <div className="space-y-4">
+                                        {notification?.message ? (
+                                            <p className="text-gray-700">{notification.message}</p>
+                                        ) : (
+                                            <>
+                                                <p className="text-gray-700">Standard Registration Fee: Kes 3000</p>
+                                                <p className="text-gray-600 text-sm">This fee covers the processing of your application and related administrative costs.</p>
+                                                <div className="mt-4 p-4 bg-blue-50 rounded-md">
+                                                    <p className="text-blue-800 text-sm">Please review all your information before proceeding with the payment.</p>
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         <div className="flex justify-between">
                             {step > 1 && <button type="button" onClick={prevStep} className="px-4 py-2 bg-gray-400 text-white rounded">Back</button>}
                             {step < totalSteps && (
                                 <button type="button" onClick={nextStep} className="px-4 py-2 bg-blue-600 text-white rounded">Next</button>
                             )}
 
-                            {step == 4 && (
+                            {step === 5 && (
                                 <button type="submit" disabled={processing} className="px-4 py-2 bg-green-600 text-white rounded">
                                     {processing ? 'Submitting...' : 'Submit'}
                                 </button>

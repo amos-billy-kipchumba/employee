@@ -27,7 +27,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        $notification = Notification::orderBy('created_at', 'desc')->first();
+        
+        return Inertia::render('Auth/Register', [
+            'notification'=> $notification
+        ]);
     }
 
     /**
