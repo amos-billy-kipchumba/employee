@@ -57,9 +57,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('companies', CompanyController::class);
     Route::get('/companies/list', [CompanyController::class, 'list'])->name('companies.list');
 
-    Route::resource('employees', EmployeeController::class);
-    Route::get('/companies/{company}/employees', [EmployeeController::class, 'getEmployeesByCompany'])
-    ->name('company.employees');
     
     Route::resource('loans', LoanController::class);
     Route::get('/loans/{loan}/approve', [LoanController::class, 'approve'])->name('loans.approval');
@@ -70,6 +67,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('repayments', RepaymentController::class);
     Route::resource('users', UserController::class);
 });
+
+Route::resource('employees', EmployeeController::class);
+Route::get('/companies/{company}/employees', [EmployeeController::class, 'getEmployeesByCompany'])
+    ->name('company.employees');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
