@@ -14,12 +14,9 @@ const ProcessedRequest = () => {
                 
                 <div className="relative bg-white shadow-lg sm:rounded-3xl p-6">
                     <div className="flex justify-end mb-4">
-                        <Link 
-                            href={route('home')}
-                            as="button" 
-                            className="text-sm bg-black text-white rounded-md hover:text-red-500 transition-colors px-4 py-2"
-                        >
-                            Go back
+                        <Link href={route('logout')} method="post" as="button" className="p-link layout-topbar-button">
+                            <i className="pi pi-lock"></i>
+                            <span>Logout</span>
                         </Link>
                     </div>
 

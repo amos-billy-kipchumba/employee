@@ -21,7 +21,7 @@ export default function Login({status, canResetPassword}) {
     };
 
     return (
-        <div className='bg-yellow-400 w-full flex flex-col'>
+        <div className='bg-yellow-400 w-full flex flex-col text-4xl'>
             <Head title="Log in"/>
 
 
@@ -29,10 +29,17 @@ export default function Login({status, canResetPassword}) {
             
 
             <div className="flex min-h-screen max-w-4xl mx-auto flex-col items-center justify-center py-[200px]">
+                <Link 
+                    href={route('home')}
+                    as="button" 
+                    className="text-sm bg-black text-white rounded-md hover:text-red-500 transition-colors px-4 py-2"
+                >
+                    Go back
+                </Link>
                 <img 
                     src="/image/logo/logo.png" 
                     alt="hyper" 
-                    className="h-16 mb-3"
+                    className="h-24 mb-3"
                 />
                 <div className="w-full p-6 rounded-lg shadow-md bg-white">
                     <div className="text-center mb-5">

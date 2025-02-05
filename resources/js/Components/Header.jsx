@@ -121,6 +121,13 @@ function Header() {
                         >
                             Register
                         </Link>
+
+                        <Link
+                            href={route('login')}
+                            className="scroll ml-2 bg-blue-600 text-white px-4 py-2"
+                        >
+                            Login
+                        </Link>
                         </h6>
                     </div>
                     </div>
