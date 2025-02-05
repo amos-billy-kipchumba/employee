@@ -69,10 +69,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('notifications', NotificationController::class);
     Route::resource('repayments', RepaymentController::class);
     Route::resource('users', UserController::class);
-
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/uikit/button', function () {
     return Inertia::render('main/uikit/button/page');
