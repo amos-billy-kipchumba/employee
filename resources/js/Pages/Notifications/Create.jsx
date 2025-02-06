@@ -33,7 +33,7 @@ const Create = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Message</label>
+            <label className="block text-sm font-medium text-gray-700">Registration fee comment</label>
             <textarea
               value={data.message}
               onChange={(e) => setData('message', e.target.value)}
@@ -41,6 +41,17 @@ const Create = () => {
               style={{height: '200px'}}
             ></textarea>
             {errors.message && <div className="text-sm text-red-500 mt-1">{errors.message}</div>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Registration comment</label>
+            <textarea
+              value={data.is_read}
+              onChange={(e) => setData('is_read', e.target.value)}
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              style={{height: '200px'}}
+            ></textarea>
+            {errors.is_read && <div className="text-sm text-red-500 mt-1">{errors.is_read}</div>}
           </div>
 
           <div>

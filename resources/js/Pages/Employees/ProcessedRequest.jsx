@@ -22,7 +22,7 @@ const ProcessedRequest = () => {
 
                     <div>
                         <p>Hi, {user.name}</p>
-                        <p>{notification.message}</p>
+                        <p>{notification.is_read}</p>
                     </div>
 
                 </div>
