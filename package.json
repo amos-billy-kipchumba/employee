@@ -34,6 +34,7 @@
         "react-datepicker": "^7.6.0",
         "react-daterange-picker": "^2.0.1",
         "react-select": "^5.9.0",
+        "react-toastify": "^11.0.3",
         "react-transition-group": "^4.4.5",
         "sweetalert2": "^11.15.10",
         "xlsx": "^0.18.5"

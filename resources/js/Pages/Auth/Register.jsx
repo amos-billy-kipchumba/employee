@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useForm, Head, Link, usePage } from '@inertiajs/react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Guest from '@/Layouts/GuestLayout';
 
 export default function Register() {
@@ -20,11 +22,43 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('register'));
+
+        post(route('register'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                toast.success('Registration successful!');
+                reset();
+            },
+            onError: (errors) => {
+                // Loop over each error field and display a toast notification
+                Object.keys(errors).forEach((field) => {
+                    const errorMessages = errors[field];
+                    if (Array.isArray(errorMessages)) {
+                        errorMessages.forEach((message) => toast.error(message));
+                    } else {
+                        toast.error(errorMessages);
+                    }
+                });
+            },
+            onFinish: () => {
+                console.log("Request completed");
+            }
+        });
     };
 
     return (
         <Guest>
+            {/* Toast container to render toast notifications */}
+            <ToastContainer 
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12 bg-yellow-400 text-xl">
                 <Head title="Register" />
                 
@@ -52,7 +86,6 @@ export default function Register() {
                     </div>
 
                     <form onSubmit={submit} className="space-y-6">
-                        {/* Steps 1-4 remain the same */}
                         {step === 1 && (
                             <div>
                                 <h3 className="text-xl font-semibold mb-4">Personal Information</h3>
@@ -60,31 +93,40 @@ export default function Register() {
                                 <div className="mb-3">
                                     <label htmlFor="name" className="block mb-1">Full Name</label>
                                     <input 
-                                        type="text" name="name" id="name" value={data.name} 
+                                        type="text" 
+                                        name="name" 
+                                        id="name" 
+                                        value={data.name} 
                                         onChange={(e) => setData('name', e.target.value)} 
-                                        placeholder="Full Name" className="w-full p-2 border rounded" 
+                                        placeholder="Full Name" 
+                                        className="w-full p-2 border rounded" 
                                     />
-                                    {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                                 </div>
 
                                 <div className="mb-3">
                                     <label htmlFor="email" className="block mb-1">Email</label>
                                     <input 
-                                        type="email" name="email" id="email" value={data.email} 
+                                        type="email" 
+                                        name="email" 
+                                        id="email" 
+                                        value={data.email} 
                                         onChange={(e) => setData('email', e.target.value)} 
-                                        placeholder="Email" className="w-full p-2 border rounded" 
+                                        placeholder="Email" 
+                                        className="w-full p-2 border rounded" 
                                     />
-                                    {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
                                 </div>
 
                                 <div className="mb-3">
                                     <label htmlFor="phone" className="block mb-1">Phone</label>
                                     <input 
-                                        type="tel" name="phone" id="phone" value={data.phone} 
+                                        type="tel" 
+                                        name="phone" 
+                                        id="phone" 
+                                        value={data.phone} 
                                         onChange={(e) => setData('phone', e.target.value)} 
-                                        placeholder="Phone" className="w-full p-2 border rounded" 
+                                        placeholder="Phone" 
+                                        className="w-full p-2 border rounded" 
                                     />
-                                    {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
                                 </div>
                             </div>
                         )}
@@ -95,21 +137,27 @@ export default function Register() {
                                 <div className="mb-3">
                                     <label htmlFor="position" className="block mb-1">Work position</label>
                                     <input 
-                                        type="text" name="position" id="position" value={data.position} 
+                                        type="text" 
+                                        name="position" 
+                                        id="position" 
+                                        value={data.position} 
                                         onChange={(e) => setData('position', e.target.value)} 
-                                        placeholder="Position" className="w-full p-2 border rounded" 
+                                        placeholder="Position" 
+                                        className="w-full p-2 border rounded" 
                                     />
-                                    {errors.position && <p className="text-red-500 text-sm">{errors.position}</p>}
                                 </div>
 
                                 <div className="mb-3">
                                     <label htmlFor="education" className="block mb-1">Highest education level</label>
                                     <input 
-                                        type="text" name="education" id="education" value={data.education} 
+                                        type="text" 
+                                        name="education" 
+                                        id="education" 
+                                        value={data.education} 
                                         onChange={(e) => setData('education', e.target.value)} 
-                                        placeholder="Education level" className="w-full p-2 border rounded" 
+                                        placeholder="Education level" 
+                                        className="w-full p-2 border rounded" 
                                     />
-                                    {errors.education && <p className="text-red-500 text-sm">{errors.education}</p>}
                                 </div>
                             </div>
                         )}
@@ -120,11 +168,14 @@ export default function Register() {
                                 <div className="mb-3">
                                     <label htmlFor="passport_number" className="block mb-1">Passport/ID number</label>
                                     <input 
-                                        type="text" name="passport_number" id="passport_number" value={data.passport_number} 
+                                        type="text" 
+                                        name="passport_number" 
+                                        id="passport_number" 
+                                        value={data.passport_number} 
                                         onChange={(e) => setData('passport_number', e.target.value)} 
-                                        placeholder="Passport/ID Number" className="w-full p-2 border rounded" 
+                                        placeholder="Passport/ID Number" 
+                                        className="w-full p-2 border rounded" 
                                     />
-                                    {errors.passport_number && <p className="text-red-500 text-sm">{errors.passport_number}</p>}
                                 </div>
                             </div>
                         )}
@@ -134,14 +185,22 @@ export default function Register() {
                                 <h3 className="text-xl font-semibold mb-4">Upload Documents</h3>
                                 <div className="mb-3">
                                     <label htmlFor="cv" className="block mb-1">Upload CV</label>
-                                    <input type="file" id="cv" onChange={(e) => setData('cv', e.target.files[0])} className="w-full p-2 border rounded" />
-                                    {errors.cv && <p className="text-red-500 text-sm">{errors.cv}</p>}
+                                    <input 
+                                        type="file" 
+                                        id="cv" 
+                                        onChange={(e) => setData('cv', e.target.files[0])} 
+                                        className="w-full p-2 border rounded" 
+                                    />
                                 </div>
 
                                 <div className="mb-3">
                                     <label htmlFor="cover_letter" className="block mb-1">Certificate of good conduct</label>
-                                    <input type="file" id="cover_letter" onChange={(e) => setData('cover_letter', e.target.files[0])} className="w-full p-2 border rounded" />
-                                    {errors.cover_letter && <p className="text-red-500 text-sm">{errors.cover_letter}</p>}
+                                    <input 
+                                        type="file" 
+                                        id="cover_letter" 
+                                        onChange={(e) => setData('cover_letter', e.target.files[0])} 
+                                        className="w-full p-2 border rounded" 
+                                    />
                                 </div>
                             </div>
                         )}
@@ -156,9 +215,13 @@ export default function Register() {
                                         ) : (
                                             <>
                                                 <p className="text-gray-700">Standard Registration Fee: Kes 3000</p>
-                                                <p className="text-gray-600 text-sm">This fee covers the processing of your application and related administrative costs.</p>
+                                                <p className="text-gray-600 text-sm">
+                                                    This fee covers the processing of your application and related administrative costs.
+                                                </p>
                                                 <div className="mt-4 p-4 bg-blue-50 rounded-md">
-                                                    <p className="text-blue-800 text-sm">Please review all your information before proceeding with the payment.</p>
+                                                    <p className="text-blue-800 text-sm">
+                                                        Please review all your information before proceeding with the payment.
+                                                    </p>
                                                 </div>
                                             </>
                                         )}
@@ -168,13 +231,30 @@ export default function Register() {
                         )}
 
                         <div className="flex justify-between">
-                            {step > 1 && <button type="button" onClick={prevStep} className="px-4 py-2 bg-gray-400 text-white rounded">Back</button>}
-                            {step < totalSteps && (
-                                <button type="button" onClick={nextStep} className="px-4 py-2 bg-blue-600 text-white rounded">Next</button>
+                            {step > 1 && (
+                                <button 
+                                    type="button" 
+                                    onClick={prevStep} 
+                                    className="px-4 py-2 bg-gray-400 text-white rounded"
+                                >
+                                    Back
+                                </button>
                             )}
-
+                            {step < totalSteps && (
+                                <button 
+                                    type="button" 
+                                    onClick={nextStep} 
+                                    className="px-4 py-2 bg-blue-600 text-white rounded"
+                                >
+                                    Next
+                                </button>
+                            )}
                             {step === 5 && (
-                                <button type="submit" disabled={processing} className="px-4 py-2 bg-green-600 text-white rounded">
+                                <button 
+                                    type="submit" 
+                                    disabled={processing} 
+                                    className="px-4 py-2 bg-green-600 text-white rounded"
+                                >
                                     {processing ? 'Submitting...' : 'Submit'}
                                 </button>
                             )}

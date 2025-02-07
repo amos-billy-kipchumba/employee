@@ -20,6 +20,12 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\AdminUserRegistrationMail;
 use Illuminate\Support\Facades\Storage;
 
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -41,70 +47,93 @@ class RegisteredUserController extends Controller
      */
 
      public function store(Request $request)
-     {
-         $request->validate([
-             'name' => 'required|string|max:255',
-             'role_id' => 'nullable',
-             'phone' => 'required',
-             'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
-             'password' => ['nullable'],
-             'date_of_birth' => 'nullable|date',
-             'nationality' => 'nullable|string',
-             'current_location' => 'nullable|string',
-             'preferred_countries' => 'nullable|array',
-             'position' => 'nullable',
-             'education' => 'nullable|string',
-             'languages' => 'nullable|string',
-             'passport_number' => 'nullable|string',
-             'cv' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-             'cover_letter' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-             'references' => 'nullable|string',
-         ]);
-     
-         // Store the uploaded files
-         $cvPath = $request->file('cv') ? $request->file('cv')->store('cvs', 'public') : null;
-         $coverLetterPath = $request->file('cover_letter') ? $request->file('cover_letter')->store('cover_letters', 'public') : null;
-     
-         $user = User::create([
-             'name' => $request->name,
-             'email' => $request->email,
-             'phone' => $request->phone,
-             'role_id' => 3,
-             'password' => Hash::make($request->password),
-             'date_of_birth' => $request->date_of_birth,
-             'nationality' => $request->nationality,
-             'current_location' => $request->current_location,
-             'preferred_countries' => $request->preferred_countries,
-             'position' => $request->position,
-             'education' => $request->education,
-             'languages' => $request->languages,
-             'passport_number' => $request->passport_number,
-             'cv' => $cvPath,
-             'cover_letter' => $coverLetterPath,
-             'references' => $request->references,
-         ]);
-     
-         // Send confirmation email to user
-         event(new Registered($user));
-         Auth::login($user);
-     
-         // Convert the stored file paths to their full absolute paths
-         $cvFullPath = $cvPath ? storage_path('app/public/' . $cvPath) : null;
-         $coverLetterFullPath = $coverLetterPath ? storage_path('app/public/' . $coverLetterPath) : null;
-     
-         // Send email to admin with file attachments
-         $virtualUser = new User;
-         $virtualUser->email = 'info@linkpathtravel.agency';
-     
-         Mail::to($virtualUser)->send(new AdminUserRegistrationMail($user, $cvFullPath, $coverLetterFullPath));
+    {
+        try {
+            // Validate the request data. On failure, a ValidationException is thrown.
+            $validated = $request->validate([
+                'name'               => 'required|string|max:255',
+                'role_id'            => 'nullable',
+                'phone'              => 'required',
+                'email'              => 'required|string|lowercase|email|max:255|unique:' . User::class,
+                'password'           => ['nullable'],
+                'date_of_birth'      => 'nullable|date',
+                'nationality'        => 'nullable|string',
+                'current_location'   => 'nullable|string',
+                'preferred_countries'=> 'nullable|array',
+                'position'           => 'nullable',
+                'education'          => 'nullable|string',
+                'languages'          => 'nullable|string',
+                'passport_number'    => 'nullable|string',
+                'cv'                 => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+                'cover_letter'       => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+                'references'         => 'nullable|string',
+            ]);
 
-         $notification = Notification::orderBy('created_at', 'desc')->first();
-     
-         return Inertia::render('Employees/ProcessedRequest', [
-             'user' => $user,
-             'notification'=> $notification
-         ]);
-     }
+            // Store uploaded files if provided.
+            $cvPath = $request->file('cv')
+                ? $request->file('cv')->store('cvs', 'public')
+                : null;
+            $coverLetterPath = $request->file('cover_letter')
+                ? $request->file('cover_letter')->store('cover_letters', 'public')
+                : null;
+
+            // Create the user.
+            $user = User::create([
+                'name'               => $validated['name'],
+                'email'              => $validated['email'],
+                'phone'              => $validated['phone'],
+                'role_id'            => 3,
+                'password'           => Hash::make($validated['password']),
+                'date_of_birth'      => $validated['date_of_birth'] ?? null,
+                'nationality'        => $validated['nationality'] ?? null,
+                'current_location'   => $validated['current_location'] ?? null,
+                'preferred_countries'=> $validated['preferred_countries'] ?? null,
+                'position'           => $validated['position'] ?? null,
+                'education'          => $validated['education'] ?? null,
+                'languages'          => $validated['languages'] ?? null,
+                'passport_number'    => $validated['passport_number'] ?? null,
+                'cv'                 => $cvPath,
+                'cover_letter'       => $coverLetterPath,
+                'references'         => $validated['references'] ?? null,
+            ]);
+
+            // Fire the Registered event and log the user in.
+            event(new Registered($user));
+            Auth::login($user);
+
+            // Notify admin by email.
+            Mail::to('info@linkpathtravel.agency')
+                ->send(new AdminUserRegistrationMail(
+                    $user,
+                    $cvPath ? storage_path('app/public/' . $cvPath) : null,
+                    $coverLetterPath ? storage_path('app/public/' . $coverLetterPath) : null
+                ));
+
+            // Retrieve the latest notification.
+            $notification = Notification::orderBy('created_at', 'desc')->first();
+
+            // Return an Inertia response on success.
+            return Inertia::render('Employees/ProcessedRequest', [
+                'user'         => $user,
+                'notification' => $notification,
+            ]);
+
+        } catch (ValidationException $e) {
+            // If this is an Inertia request, rethrow the exception so that Inertia's middleware can handle it.
+            if ($request->header('X-Inertia')) {
+                throw $e;
+            }
+            // Otherwise, return a JSON response.
+            return response()->json(['errors' => $e->errors()], 422);
+        } catch (\Exception $e) {
+            // Log the error.
+            Log::error('Registration Error: ' . $e->getMessage());
+            if ($request->header('X-Inertia')) {
+                throw $e;
+            }
+            return response()->json(['message' => 'An unexpected error occurred. Please try again later.'], 500);
+        }
+    }
      
     
 }
